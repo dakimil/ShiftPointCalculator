@@ -61,6 +61,7 @@ List<decimal?> momenti_motora_za_brzinu_sracunaj(List<decimal> obrtaji_pri_brzin
     return momenti_pri_brzini;
 }
 
+Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
 
 //ucitavanje fajla
 //string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
