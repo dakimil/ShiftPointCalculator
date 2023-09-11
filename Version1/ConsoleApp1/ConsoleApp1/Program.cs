@@ -63,8 +63,9 @@ List<decimal?> momenti_motora_za_brzinu_sracunaj(List<decimal> obrtaji_pri_brzin
 
 
 //ucitavanje fajla
-string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-string fullName = System.IO.Path.Combine(desktopPath, "Primer ulaznog fajla.txt");
+//string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+//string fullName = System.IO.Path.Combine(desktopPath, "Primer ulaznog fajla.txt");
+String fullName = @"VehicleData\Primer ulaznog fajla.txt";
 List<string> linije = new List<string>();
 //izbacivanje '------'
 foreach (string line in File.ReadLines(fullName, Encoding.UTF8))

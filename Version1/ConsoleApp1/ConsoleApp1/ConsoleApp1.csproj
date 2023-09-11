@@ -7,4 +7,14 @@
     <Nullable>disable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="VehicleData\Primer ulaznog fajla.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="VehicleData\Primer ulaznog fajla.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>
