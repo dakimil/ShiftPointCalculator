@@ -1,8 +1,10 @@
-﻿namespace ShiftPointCalculator
+﻿using System.Text;
+
+namespace ShiftPointCalculator
 {
     internal class Program
     {
-        static UlazniPodaci Parsiranje(List<string> linije)
+        static UlazniPodaci Parsiranje(IEnumerable<string> linije)
         {
             const string separator = "-------------";
             UlazniPodaci UP = new UlazniPodaci();
@@ -50,7 +52,7 @@
             //string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             //string fullName = System.IO.Path.Combine(desktopPath, "Primer ulaznog fajla.txt");
             String fullName = @"VehicleData\Primer ulaznog fajla.txt";
-            List<string> linije = new List<string>();
+            IEnumerable<string> linije = File.ReadLines(fullName, Encoding.UTF8);
             UlazniPodaci Ulaz=new UlazniPodaci();
             Ulaz = Parsiranje(linije);
 
