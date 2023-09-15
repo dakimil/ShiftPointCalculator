@@ -7,42 +7,42 @@ namespace ShiftPointCalculator
         static UlazniPodaci Parsiranje(IEnumerable<string> linije)
         {
             const string separator = "-------------";
-            UlazniPodaci UP = new UlazniPodaci();
-            int br = 0, stepen = 1;
+            UlazniPodaci up = new UlazniPodaci();
+            int br_separatora = 0, stepen = 1;
             foreach (string linija in linije)
             {
                 if (linija.Equals(separator))
                 {
-                    br++;
+                    br_separatora++;
                     continue;
                 }
-                if (br == 0)
+                if (br_separatora == 0)
                 {
-                    UP.PoluprecnikTocka = Convert.ToInt32(linija);
+                    up.PoluprecnikTocka = Convert.ToInt32(linija);
                 }
-                else if (br == 1)
+                else if (br_separatora == 1)
                 {
-                    UP.PrenosniOdnosUDiferncijalu = Convert.ToInt32(linija);
+                    up.PrenosniOdnosUDiferncijalu = Convert.ToInt32(linija);
                 }
-                else if(br == 2)
+                else if (br_separatora == 2)
                 {
-                    StepenPrenosaMenjaca SPM = new StepenPrenosaMenjaca();
-                    SPM.RedniBrojStepenaPrenosa = stepen;
-                    SPM.PrenosniOdnos = Convert.ToInt32(linija);
-                    UP.StepeniPrenosaMenjaca.Add(SPM);
+                    StepenPrenosaMenjaca spm = new StepenPrenosaMenjaca();
+                    spm.RedniBrojStepenaPrenosa = stepen;
+                    spm.PrenosniOdnos = Convert.ToInt32(linija);
+                    up.StepeniPrenosaMenjaca.Add(spm);
                     stepen++;
                 }
                 else
                 {
-                    MomentMotora MM = new MomentMotora();
+                    MomentMotora mm = new MomentMotora();
                     string[] pom = linija.Split('\t');
-                    MM.BrojObrtaja = Convert.ToInt32(pom[0]);
-                    MM.MomentPriObrtajima = Convert.ToInt32(pom[1]);
-                    UP.MomentiMotora.Add(MM);
+                    mm.BrojObrtaja = Convert.ToInt32(pom[0]);
+                    mm.MomentPriObrtajima = Convert.ToInt32(pom[1]);
+                    up.MomentiMotora.Add(mm);
                 }
             }
 
-            return UP;
+            return up;
         }
         static void Main(string[] args)
         {
