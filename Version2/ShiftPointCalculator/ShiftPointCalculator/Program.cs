@@ -18,17 +18,17 @@ namespace ShiftPointCalculator
                 }
                 if (br_separatora == 0)
                 {
-                    up.PoluprecnikTocka = Convert.ToInt32(linija);
+                    up.PoluprecnikTocka = Convert.ToDecimal(linija);
                 }
                 else if (br_separatora == 1)
                 {
-                    up.PrenosniOdnosUDiferncijalu = Convert.ToInt32(linija);
+                    up.PrenosniOdnosUDiferncijalu = Convert.ToDecimal(linija);
                 }
                 else if (br_separatora == 2)
                 {
                     StepenPrenosaMenjaca spm = new StepenPrenosaMenjaca();
                     spm.RedniBrojStepenaPrenosa = stepen;
-                    spm.PrenosniOdnos = Convert.ToInt32(linija);
+                    spm.PrenosniOdnos = Convert.ToDecimal(linija);
                     up.StepeniPrenosaMenjaca.Add(spm);
                     stepen++;
                 }
@@ -37,7 +37,7 @@ namespace ShiftPointCalculator
                     MomentMotora mm = new MomentMotora();
                     string[] pom = linija.Split('\t');
                     mm.BrojObrtaja = Convert.ToInt32(pom[0]);
-                    mm.MomentPriObrtajima = Convert.ToInt32(pom[1]);
+                    mm.MomentPriObrtajima = Convert.ToDecimal(pom[1]);
                     up.MomentiMotora.Add(mm);
                 }
             }
@@ -66,6 +66,22 @@ namespace ShiftPointCalculator
             UlazniPodaci ulazniPodaci = null!;
 
             ulazniPodaci = Parsiranje(linije);
+
+            Vozilo kola = new Vozilo();
+            for(int v=10; v<=230; v += 10)
+            {
+                MomentiNaTockovimaZaBrzinuVozila moment = new MomentiNaTockovimaZaBrzinuVozila();
+                moment.BrzinaVozila = v;
+                foreach(StepenPrenosaMenjaca spm in ulazniPodaci.StepeniPrenosaMenjaca)
+                {
+                    DataPoint dataPoint = new DataPoint();
+                    dataPoint.BrzinaVozila = moment.BrzinaVozila;
+                    dataPoint.PrenosniOdnosMenjaca = spm.PrenosniOdnos;
+                    dataPoint.RedniBrojStepenaPrenosaMenjaca = spm.RedniBrojStepenaPrenosa;
+                    moment.DataPoints.Add(dataPoint.RedniBrojStepenaPrenosaMenjaca, dataPoint);
+                }
+                kola.MomentiNaTockovimaZaSveBrzineVozila.Add(moment.BrzinaVozila, moment);
+            }
 
         }
     }
