@@ -48,14 +48,24 @@ namespace ShiftPointCalculator
         {
             Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
 
-            //ucitavanje fajla
-            //string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            //string fullName = System.IO.Path.Combine(desktopPath, "Primer ulaznog fajla.txt");
-            String fullName = @"VehicleData\Primer ulaznog fajla.txt";
-            IEnumerable<string> linije = File.ReadLines(fullName, Encoding.UTF8);
-            UlazniPodaci Ulaz=new UlazniPodaci();
-            Ulaz = Parsiranje(linije);
 
+            IEnumerable<string> linije = default!;
+            try
+            {
+                String fullName = @"VehicleData\Primer ulaznog fajla.txt";
+                linije = File.ReadLines(fullName, Encoding.UTF8);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+                return;
+            }
+
+
+            UlazniPodaci ulazniPodaci = null!;
+
+            ulazniPodaci = Parsiranje(linije);
 
         }
     }
