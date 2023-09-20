@@ -4,6 +4,11 @@ namespace ShiftPointCalculator
 {
     internal class Program
     {
+        static DataPoint Izaracunaj(DataPoint dataPoint, decimal prenosniOdnosDiferencijala)
+        {
+            dataPoint.MomentNaTocku = dataPoint.MomentMotoraPriObrtajima * dataPoint.PrenosniOdnosMenjaca * prenosniOdnosDiferencijala;
+            return dataPoint;
+        }
         static UlazniPodaci Parsiranje(IEnumerable<string> linije)
         {
             const string separator = "-------------";
@@ -78,7 +83,9 @@ namespace ShiftPointCalculator
                     dataPoint.BrzinaVozila = moment.BrzinaVozila;
                     dataPoint.PrenosniOdnosMenjaca = spm.PrenosniOdnos;
                     dataPoint.RedniBrojStepenaPrenosaMenjaca = spm.RedniBrojStepenaPrenosa;
+                    dataPoint = Izaracunaj(dataPoint, ulazniPodaci.PrenosniOdnosUDiferncijalu);
                     moment.DataPoints.Add(dataPoint.RedniBrojStepenaPrenosaMenjaca, dataPoint);
+
                 }
                 kola.MomentiNaTockovimaZaSveBrzineVozila.Add(moment.BrzinaVozila, moment);
             }
