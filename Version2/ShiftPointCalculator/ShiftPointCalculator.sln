@@ -3,7 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShiftPointCalculator", "ShiftPointCalculator\ShiftPointCalculator.csproj", "{761678E8-FE7D-4DE8-8B89-0AC4B0B71BE0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShiftPointCalculator", "ShiftPointCalculator\ShiftPointCalculator.csproj", "{761678E8-FE7D-4DE8-8B89-0AC4B0B71BE0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataBase", "DataBase", "{D02D2264-6659-4A3E-A8B1-5A0348115CF3}"
+	ProjectSection(SolutionItems) = preProject
+		DataBase\10 - VOZILO.sql = DataBase\10 - VOZILO.sql
+		DataBase\20 - PoluprecnikTocka.sql = DataBase\20 - PoluprecnikTocka.sql
+		DataBase\30 - PrenosniOdnosUDiferncijalu.sql = DataBase\30 - PrenosniOdnosUDiferncijalu.sql
+		DataBase\40 - StepenPrenosaMenjaca.sql = DataBase\40 - StepenPrenosaMenjaca.sql
+		DataBase\50 - MomentMotora.sql = DataBase\50 - MomentMotora.sql
+		DataBase\StepenPrenosaMenjaca.sql = DataBase\StepenPrenosaMenjaca.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
