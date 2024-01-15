@@ -10,7 +10,7 @@ namespace ShiftPointCalculator
     {
         public decimal PoluprecnikTocka { get; set; }
 
-        public decimal PrenosniOdnosUDiferncijalu { get; set; }
+        public decimal GlavniPrenos { get; set; }
 
         public List<StepenPrenosaMenjaca> StepeniPrenosaMenjaca = new List<StepenPrenosaMenjaca>();
 

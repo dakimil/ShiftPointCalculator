@@ -78,7 +78,7 @@ namespace ShiftPointCalculator
                     dataPoint.BrzinaVozila = moment.BrzinaVozila;
                     dataPoint.PrenosniOdnosMenjaca = spm.PrenosniOdnos;
                     dataPoint.RedniBrojStepenaPrenosaMenjaca = spm.RedniBrojStepenaPrenosa;
-                    dataPoint.IzaracunajMomentNaTockovima(ulazniPodaci.PrenosniOdnosUDiferncijalu);
+                    dataPoint.IzaracunajMomentNaTockovima(ulazniPodaci.GlavniPrenos);
                     moment.DataPoints.Add(dataPoint.RedniBrojStepenaPrenosaMenjaca, dataPoint);
 
                 }
