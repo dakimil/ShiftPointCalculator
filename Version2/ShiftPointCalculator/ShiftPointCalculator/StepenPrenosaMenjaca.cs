@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ShiftPointCalculator
 {
-    internal class StepenPrenosaMenjaca
+    public class StepenPrenosaMenjaca //bilo je internal class ali je promenjeno zbog metoda GetByVoziloId u StepenPrenosaMenjacaProvider
     {
         public int RedniBrojStepenaPrenosa { get; set; }
 

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ShiftPointCalculator.DataAcces
 {
-    internal class VoziloDataProvider
+    public static class VoziloDataProvider
     {
         private const string DELETE = @"
             --redosled je bitan zbog FK
