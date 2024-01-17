@@ -50,6 +50,22 @@ VALUES(
 );
 ";
 
+        private const string SELECT_ALL = @"
+SELECT Id, NazivVozila 
+FROM dbo.Vozilo;
+";
+
+        private const string SELECT_BY_ID = @"
+SELECT
+	Id
+	,NazivVozila
+FROM
+	dbo.Vozilo
+WHERE
+    Id = @Id;
+
+";
+
         public static void Delete(string nazivVozila)
         {
             SqlConnection cn = new SqlConnection(ConnectionStrings.ConnectionString);
@@ -140,6 +156,75 @@ VALUES(
 
             return id.Value;
         }
-    }
-    
+
+        public static List<VoziloQueryResult> GetAll()
+        {
+            List<VoziloQueryResult> listaVozila = new List<VoziloQueryResult>();
+
+            SqlConnection cn = new SqlConnection(ConnectionStrings.ConnectionString);
+
+            try
+            {
+                cn.Open();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
+            }
+
+            SqlCommand cmd = cn.CreateCommand();
+            cmd.CommandText = SELECT_ALL;
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            //citamo dok ima redova
+            while (reader.Read())
+            {
+                VoziloQueryResult voziloQueryResult = new VoziloQueryResult();
+                voziloQueryResult.NazivVozila = Convert.ToString(reader["NazivVozila"]);
+                voziloQueryResult.Id = Convert.ToInt32(reader["Id"]);
+                listaVozila.Add(voziloQueryResult);
+            }
+
+            cn.Close();
+
+            return listaVozila;
+        }
+
+        public static VoziloQueryResult GetById(int id)
+        {
+            SqlConnection cn = new SqlConnection(ConnectionStrings.ConnectionString);
+
+            try
+            {
+                cn.Open();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
+            }
+            SqlCommand cmd = cn.CreateCommand();
+            cmd.CommandText = SELECT_BY_ID;
+            SqlParameter prmVoziloId = new SqlParameter();
+            prmVoziloId.ParameterName = "id";
+            prmVoziloId.SqlDbType = System.Data.SqlDbType.Int;
+            prmVoziloId.Value = id;
+
+            cmd.Parameters.Add(prmVoziloId);
+
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            reader.Read();
+
+            VoziloQueryResult voziloQueryResult = new VoziloQueryResult();
+            voziloQueryResult.NazivVozila = Convert.ToString(reader["NazivVozila"]);
+            voziloQueryResult.Id = Convert.ToInt32(reader["Id"]);
+
+
+            cn.Close();
+
+            return voziloQueryResult;
+        }
+    }  
 }
