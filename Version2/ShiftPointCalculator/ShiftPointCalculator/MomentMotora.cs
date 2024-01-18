@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ShiftPointCalculator
 {
-    internal class MomentMotora
+    public class MomentMotora
     {
         public int BrojObrtaja { get; set; }
 
