@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace ShiftPointCalculator
 {
-    internal class UlazniPodaci
+    public class UlazniPodaci
     {
-        public decimal PoluprecnikTocka { get; set; }
+        public string NazivVozila {  get; set; }
+
+        public int PoluprecnikTocka { get; set; }
 
         public decimal GlavniPrenos { get; set; }
 
