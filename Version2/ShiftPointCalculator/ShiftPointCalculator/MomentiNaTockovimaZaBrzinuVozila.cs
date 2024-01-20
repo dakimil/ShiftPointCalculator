@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ShiftPointCalculator
 {
-    internal class MomentiNaTockovimaZaBrzinuVozila
+    public class MomentiNaTockovimaZaBrzinuVozila
     {
         public int BrzinaVozila { get; set; }
         /// <summary>

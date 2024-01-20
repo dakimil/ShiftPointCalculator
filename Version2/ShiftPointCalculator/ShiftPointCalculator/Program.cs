@@ -1,10 +1,14 @@
-﻿using System.Text;
+﻿using ShiftPointCalculator.DataAcces;
+using ShiftPointCalculator.Repositories;
+using System.Text;
 
 namespace ShiftPointCalculator
 {
     internal class Program
     {
-                static UlazniPodaci Parsiranje(IEnumerable<string> linije)
+        // test commit
+        static UlazniPodaci Parsiranje(
+            IEnumerable<string> linije)
         {
             const string separator = "-------------";
             UlazniPodaci up = new UlazniPodaci();
@@ -16,15 +20,20 @@ namespace ShiftPointCalculator
                     br_separatora++;
                     continue;
                 }
+
                 if (br_separatora == 0)
                 {
-                    up.PoluprecnikTocka = Convert.ToDecimal(linija);
+                    up.NazivVozila = linija;
                 }
                 else if (br_separatora == 1)
                 {
-                    up.PrenosniOdnosUDiferncijalu = Convert.ToDecimal(linija);
+                    up.PoluprecnikTocka = Convert.ToInt32(linija);
                 }
                 else if (br_separatora == 2)
+                {
+                    up.GlavniPrenos = Convert.ToDecimal(linija);
+                }
+                else if (br_separatora == 3)
                 {
                     StepenPrenosaMenjaca spm = new StepenPrenosaMenjaca();
                     spm.RedniBrojStepenaPrenosa = stepen;
@@ -44,10 +53,11 @@ namespace ShiftPointCalculator
 
             return up;
         }
+
         static void Main(string[] args)
         {
+            // diskutuj "." i ","
             Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
-
 
             IEnumerable<string> linije = default!;
             try
@@ -55,7 +65,7 @@ namespace ShiftPointCalculator
                 String fullName = @"VehicleData\Primer ulaznog fajla.txt";
                 linije = File.ReadLines(fullName, Encoding.UTF8);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
 
@@ -63,28 +73,63 @@ namespace ShiftPointCalculator
             }
 
 
-            UlazniPodaci ulazniPodaci = null!;
+            UlazniPodaci ulazniPodaci = null;
 
             ulazniPodaci = Parsiranje(linije);
 
+            UlazniPodaciVozilaRepository.Save(ulazniPodaci);
+
             Vozilo kola = new Vozilo();
-            for(int v=10; v<=230; v += 10)
+
+            List<QueryResults.VoziloQueryResult> listaVozila = VoziloDataProvider.GetAll();
+
+            // TODO
+            // Prikazi listaVozila
+            // Korisnik bira vozilo
+
+            QueryResults.VoziloQueryResult prvoVozilo = listaVozila.First();
+            kola.UlazniPodaci = UlazniPodaciVozilaRepository.GetByVoziloId(prvoVozilo.Id);
+
+            Racunaj(kola);
+        }
+
+        private static void Racunaj(Vozilo kola)
+        {
+            // TODO
+            // Sracunati nekako 230, ako moze
+            // Ili dodati u Ulazne podatke
+            for (int v = 10; v <= 230; v += 10)
             {
                 MomentiNaTockovimaZaBrzinuVozila moment = new MomentiNaTockovimaZaBrzinuVozila();
                 moment.BrzinaVozila = v;
-                foreach(StepenPrenosaMenjaca spm in ulazniPodaci.StepeniPrenosaMenjaca)
+                foreach (StepenPrenosaMenjaca spm in kola.UlazniPodaci.StepeniPrenosaMenjaca)
                 {
                     DataPoint dataPoint = new DataPoint();
                     dataPoint.BrzinaVozila = moment.BrzinaVozila;
                     dataPoint.PrenosniOdnosMenjaca = spm.PrenosniOdnos;
                     dataPoint.RedniBrojStepenaPrenosaMenjaca = spm.RedniBrojStepenaPrenosa;
-                    dataPoint.IzaracunajMomentNaTockovima(ulazniPodaci.GlavniPrenos);
-                    moment.DataPoints.Add(dataPoint.RedniBrojStepenaPrenosaMenjaca, dataPoint);
 
+                    dataPoint.IzracunajBrojObrtajaMotora(
+                        brzina: moment.BrzinaVozila,
+                        glavniPrenos: kola.UlazniPodaci.GlavniPrenos,
+                       poluprecnikTocka: kola.UlazniPodaci.PoluprecnikTocka,
+                       stepeniPrenosaMenjaca: kola.UlazniPodaci.StepeniPrenosaMenjaca);
+
+                    dataPoint.IzracunajMomentMotoraPriObrtajima(
+                        momentiMotora: kola.UlazniPodaci.MomentiMotora);
+
+                    dataPoint.IzaracunajMomentNaTockovima(
+                        glavniPrenos: kola.UlazniPodaci.GlavniPrenos);
+
+                    moment.DataPoints.Add(
+                        dataPoint.RedniBrojStepenaPrenosaMenjaca,
+                        dataPoint);
                 }
-                kola.MomentiNaTockovimaZaSveBrzineVozila.Add(moment.BrzinaVozila, moment);
-            }
 
+                kola.MomentiNaTockovimaZaSveBrzineVozila.Add(
+                    moment.BrzinaVozila,
+                    moment);
+            }
         }
     }
 }

@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 //ovde racunamo momente na tockovima za sve brzine vozila
 namespace ShiftPointCalculator
 {
-    internal class Vozilo
-    {/// <summary>
-    /// Kljuc za pretragu je brzina vozila
-    /// </summary>
+    public class Vozilo
+    {
+        public UlazniPodaci UlazniPodaci { get; set; }
+        /// <summary>
+        /// Kljuc za pretragu je brzina vozila
+        /// </summary>
         public Dictionary<int, MomentiNaTockovimaZaBrzinuVozila> MomentiNaTockovimaZaSveBrzineVozila { get; } =
-            new Dictionary<int, MomentiNaTockovimaZaBrzinuVozila>();
+        new Dictionary<int, MomentiNaTockovimaZaBrzinuVozila>();
     }
 }
