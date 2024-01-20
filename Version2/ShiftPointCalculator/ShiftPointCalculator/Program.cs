@@ -1,5 +1,6 @@
 ﻿using ShiftPointCalculator.DataAcces;
 using ShiftPointCalculator.Repositories;
+using System.Globalization;
 using System.Text;
 
 namespace ShiftPointCalculator
@@ -56,6 +57,7 @@ namespace ShiftPointCalculator
 
         static void Main(string[] args)
         {
+            CultureInfo currentCulture = Thread.CurrentThread.CurrentCulture;
             // diskutuj "." i ","
             Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
 
@@ -72,20 +74,28 @@ namespace ShiftPointCalculator
                 return;
             }
 
-
+            
             UlazniPodaci ulazniPodaci = null;
+            try
+            {
+                ulazniPodaci = Parsiranje(linije);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
 
-            ulazniPodaci = Parsiranje(linije);
+                return;
+            }
+            finally
+            {
+                Thread.CurrentThread.CurrentCulture = currentCulture;
+            }
 
             UlazniPodaciVozilaRepository.Save(ulazniPodaci);
 
             Vozilo kola = new Vozilo();
 
             List<QueryResults.VoziloQueryResult> listaVozila = VoziloDataProvider.GetAll();
-
-            // TODO
-            // Prikazi listaVozila
-            // Korisnik bira vozilo
 
             QueryResults.VoziloQueryResult prvoVozilo = listaVozila.First();
             kola.UlazniPodaci = UlazniPodaciVozilaRepository.GetByVoziloId(prvoVozilo.Id);
@@ -95,9 +105,6 @@ namespace ShiftPointCalculator
 
         private static void Racunaj(Vozilo kola)
         {
-            // TODO
-            // Sracunati nekako 230, ako moze
-            // Ili dodati u Ulazne podatke
             for (int v = 10; v <= 230; v += 10)
             {
                 MomentiNaTockovimaZaBrzinuVozila moment = new MomentiNaTockovimaZaBrzinuVozila();
