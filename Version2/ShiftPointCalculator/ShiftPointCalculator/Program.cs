@@ -1,5 +1,7 @@
 ﻿using ShiftPointCalculator.DataAcces;
 using ShiftPointCalculator.Repositories;
+using ShiftPointCalculator.UI;
+using System;
 using System.Globalization;
 using System.Text;
 
@@ -61,6 +63,33 @@ namespace ShiftPointCalculator
             // diskutuj "." i ","
             Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
 
+            bool izadji = false;
+
+            while (!izadji)
+            {
+                Komande? izabranaKomanda = null;
+                while (true)
+                {
+                    izabranaKomanda = GlavniMeni();
+
+                    if (izabranaKomanda != null)
+                    {
+                        break;
+                    }
+                }
+
+                Console.WriteLine($"Izabrali ste: {izabranaKomanda}");
+
+                IIzvrsitelj izvrsitelj = FabrikaIzvrsitelja.VratiIzvrsitelja(
+                    komanda: izabranaKomanda.Value);
+
+                Console.WriteLine($"Ivrsitelj za komandu {izabranaKomanda} je {izvrsitelj.GetType().Name}");
+
+                izadji = izvrsitelj.Izvrsi();
+            }
+
+            return;
+
             IEnumerable<string> linije = default!;
             try
             {
@@ -74,7 +103,7 @@ namespace ShiftPointCalculator
                 return;
             }
 
-            
+
             UlazniPodaci ulazniPodaci = null;
             try
             {
@@ -137,6 +166,48 @@ namespace ShiftPointCalculator
                     moment.BrzinaVozila,
                     moment);
             }
+        }
+
+        private static Komande? GlavniMeni()
+        {
+            IEnumerable<Komande> commands = Enum.GetValues<Komande>();
+
+            Console.WriteLine("Izaberi:");
+
+            foreach (var command in commands)
+            {
+                Console.WriteLine($"{(int)command} - {command}");
+            }
+
+            string? commandString = Console.ReadLine();
+
+            if (String.IsNullOrWhiteSpace(commandString))
+            {
+                Console.WriteLine("Niste uneli komandu");
+
+                return null;
+            }
+
+
+            bool isNumber = Int32.TryParse(
+                commandString,
+                out var commandInt);
+
+            if (!isNumber)
+            {
+                Console.WriteLine("Unesite broj komande");
+                return null;
+            }
+
+            if (!Enum.IsDefined(typeof(Komande), commandInt))
+            {
+                Console.WriteLine("Niste uneli poznati broj komande");
+                return null;
+            }
+
+            Komande chosenCommand = (Komande)commandInt;
+
+            return chosenCommand;
         }
     }
 }
