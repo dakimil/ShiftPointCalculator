@@ -11,6 +11,7 @@ namespace ShiftPointCalculator.UI
         public bool Izvrsi()
         {
             // reci glavnom programu da izadje
+            Environment.Exit(0);
             return true;
         }
     }
