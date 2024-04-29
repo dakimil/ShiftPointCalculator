@@ -36,6 +36,15 @@ namespace ShiftPointCalculator.DataAcces
                     redniBroj: stepenPrenosaMenjaca.RedniBrojStepenaPrenosa,
                     prenosniOdnos: stepenPrenosaMenjaca.PrenosniOdnos);
             }
+
+            foreach(MomentMotora momentMotora in up.MomentiMotora)
+            {
+                MomentMotoraDataProvider.Insert(
+                voziloId: voziloId,
+                brojObrtaja: momentMotora.BrojObrtaja,
+                momentPriObrtajima: momentMotora.MomentPriObrtajima
+                );
+            }
         }
 
         public static UlazniPodaci GetByVoziloId(int VoziloId)
