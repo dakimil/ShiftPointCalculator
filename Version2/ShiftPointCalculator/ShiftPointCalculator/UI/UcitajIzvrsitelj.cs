@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ShiftPointCalculator.DataAcces;
 
 namespace ShiftPointCalculator.UI
 {
@@ -13,14 +9,15 @@ namespace ShiftPointCalculator.UI
         {
             string? fileName;
             string filePath;
-            Console.WriteLine("Unesite naziv i format fajla i ubacite ga u folder 'bin'");
+            Console.WriteLine("Unesite naziv i format fajla i ubacite ga u folder 'bin'");//prilagodi
             fileName = Console.ReadLine();
             if(string.IsNullOrWhiteSpace(fileName) ) {
                 Console.WriteLine("Uneli ste prazno ime fajla");
                 return false;
             }
-            filePath = $"F:\\Daki\\GitHub\\ShiftPointCalculator\\Version2\\" +
-                "ShiftPointCalculator\\ShiftPointCalculator\\bin\\" + fileName;
+            filePath = $"C:\\Users\\Daki\\source\\repos\\ShiftPointCalculator\\Version2\\ShiftPointCalculator" +
+                $"\\ShiftPointCalculator\\bin\\Debug\\" +
+                $"net6.0\\VehicleData\\" + fileName;
 
             bool fileExists = File.Exists(filePath);
 
@@ -33,7 +30,8 @@ namespace ShiftPointCalculator.UI
 
 
             string[] lines = File.ReadAllLines(filePath);
-
+            UlazniPodaci up = Parser.Parsiraj(lines);
+            UlazniPodaciVozilaRepository.Save(up);
             return false;
         }
     }

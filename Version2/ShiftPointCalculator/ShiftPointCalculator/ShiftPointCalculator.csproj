@@ -8,11 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="VehicleData\civic.txt" />
     <None Remove="VehicleData\Primer ulaznog fajla.txt" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="VehicleData\Primer ulaznog fajla.txt">
+    <Content Include="VehicleData\civic.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
