@@ -12,7 +12,7 @@ namespace ShiftPointCalculator
         /// <summary>
         /// Kljuc je redni broj stepena prenosa menjaca 
         /// </summary>
-        public Dictionary<int, DataPoint> DataPoints { get; } = new Dictionary<int, DataPoint>();
+        public Dictionary<int, DataPoint> DataPoints { get;} = new Dictionary<int, DataPoint>();
         
     }
 }

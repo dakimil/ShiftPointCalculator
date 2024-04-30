@@ -16,6 +16,8 @@ namespace ShiftPointCalculator.UI
                     return new UcitajIzvrsitelj();
                 case Komande.IzlistajVozilaIzBaze:
                     return new ListajIzvrsitelj();
+                case Komande.ProracunajZaVozilo:
+                    return new RacunajIzvrsitelj();
                 case Komande.Izadji:
                     return new IzadjiIzvrsitelj();
                 default:
