@@ -13,6 +13,14 @@ namespace ShiftPointCalculator
         /// Kljuc je redni broj stepena prenosa menjaca 
         /// </summary>
         public Dictionary<int, DataPoint> DataPoints { get;} = new Dictionary<int, DataPoint>();
-        
+
+        public DataPoint? DataPointWithMaxMoment
+        {
+            get
+            {
+                DataPoint? maxDataPoint = this.DataPoints.Values.MaxBy(x => x.MomentNaTocku);
+                return maxDataPoint;
+            }
+        }
     }
 }

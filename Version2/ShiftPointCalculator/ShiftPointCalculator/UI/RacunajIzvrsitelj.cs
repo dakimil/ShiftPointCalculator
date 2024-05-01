@@ -19,13 +19,31 @@ namespace ShiftPointCalculator.UI
 
             kola.Racunaj();
 
-            foreach(var k in kola.MomentiNaTockovimaZaSveBrzineVozila)
+            ConsoleColor defaultColor = Console.ForegroundColor;
+
+            foreach (var k in kola.MomentiNaTockovimaZaSveBrzineVozila)
             {
-                Console.Write($"Brzina: {k.Key};");
-                foreach(var v in k.Value.DataPoints)
+                string brzinaString = String.Format("{0, 3}", $"{k.Key}");
+                //s += String.Format("{0,20}", $"|Brzina: {k.Key} km/h;| ");
+                string brzinaMenjaca = String.Format("{0,20}", $"|Brzina: {brzinaString} km/h;| ");
+                Console.Write(brzinaMenjaca);
+                foreach (KeyValuePair<int, DataPoint> v in k.Value.DataPoints)
                 {
-                    Console.Write($"{v.Value.MomentNaTocku};");
+                    string dataPoint = String.Format("{0,15}", $"{Math.Round(v.Value.MomentNaTocku, 2)} Nm;| ");
+                    //s += String.Format("{0,15}", $"{Math.Round(v.Value.MomentNaTocku, 2)} Nm;| ");
+
+                    if (v.Value == k.Value.DataPointWithMaxMoment)
+                    {
+                        Console.ForegroundColor = ConsoleColor.DarkGreen;
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = defaultColor;
+                    }
+
+                    Console.Write(dataPoint);
                 }
+                // new row
                 Console.WriteLine();
             }//sredi formatiranje
             return false;

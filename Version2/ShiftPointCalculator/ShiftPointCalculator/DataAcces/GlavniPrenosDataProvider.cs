@@ -99,8 +99,6 @@ WHERE
             try
             {
                 cn.Open();
-
-                Console.WriteLine($"Connection na {cn.ConnectionString} otvorena");
             }
             catch (Exception ex)
             {
