@@ -11,7 +11,7 @@ namespace ShiftPointCalculator.DataAcces
     public static class GlavniPrenosDataProvider
     {
         private const string INSERT = @"
-INSERT INTO dbo.PrenosniOdnosUDiferencijalu
+INSERT INTO dbo.GlavniPrenos
 (
 	VoziloId
 	,PrenosniOdnos
@@ -31,7 +31,7 @@ SELECT
 	,VoziloId
 	,prenosniOdnos
 FROM
-	dbo.prenosniOdnosUDiferencijalu
+	dbo.GlavniPrenos
 WHERE
 	VoziloId = @VoziloId;
 
@@ -99,8 +99,6 @@ WHERE
             try
             {
                 cn.Open();
-
-                Console.WriteLine($"Connection na {cn.ConnectionString} otvorena");
             }
             catch (Exception ex)
             {

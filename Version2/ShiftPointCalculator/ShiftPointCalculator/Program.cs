@@ -87,42 +87,6 @@ namespace ShiftPointCalculator
             Racunaj(kola);*/
         }
 
-        private static void Racunaj(Vozilo kola)
-        {
-            for (int v = 10; v <= 230; v += 10)
-            {
-                MomentiNaTockovimaZaBrzinuVozila moment = new MomentiNaTockovimaZaBrzinuVozila();
-                moment.BrzinaVozila = v;
-                foreach (StepenPrenosaMenjaca spm in kola.UlazniPodaci.StepeniPrenosaMenjaca)
-                {
-                    DataPoint dataPoint = new DataPoint();
-                    dataPoint.BrzinaVozila = moment.BrzinaVozila;
-                    dataPoint.PrenosniOdnosMenjaca = spm.PrenosniOdnos;
-                    dataPoint.RedniBrojStepenaPrenosaMenjaca = spm.RedniBrojStepenaPrenosa;
-
-                    dataPoint.IzracunajBrojObrtajaMotora(
-                        brzina: moment.BrzinaVozila,
-                        glavniPrenos: kola.UlazniPodaci.GlavniPrenos,
-                       poluprecnikTocka: kola.UlazniPodaci.PoluprecnikTocka,
-                       stepeniPrenosaMenjaca: kola.UlazniPodaci.StepeniPrenosaMenjaca);
-
-                    dataPoint.IzracunajMomentMotoraPriObrtajima(
-                        momentiMotora: kola.UlazniPodaci.MomentiMotora);
-
-                    dataPoint.IzaracunajMomentNaTockovima(
-                        glavniPrenos: kola.UlazniPodaci.GlavniPrenos);
-
-                    moment.DataPoints.Add(
-                        dataPoint.RedniBrojStepenaPrenosaMenjaca,
-                        dataPoint);
-                }
-
-                kola.MomentiNaTockovimaZaSveBrzineVozila.Add(
-                    moment.BrzinaVozila,
-                    moment);
-            }
-        }
-
         private static Komande? GlavniMeni()
         {
             IEnumerable<Komande> commands = Enum.GetValues<Komande>();

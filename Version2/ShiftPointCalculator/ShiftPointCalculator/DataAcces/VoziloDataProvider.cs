@@ -36,6 +36,9 @@ WHERE VoziloId = @VoziloId
 DELETE dbo.StepenPrenosaMenjaca
 WHERE VoziloId = @VoziloId
 
+DELETE dbo.PoluprecnikTocka
+WHERE VoziloId = @VoziloId
+
 DELETE dbo.Vozilo
 WHERE Id = @VoziloId;
         ";
