@@ -25,7 +25,8 @@ namespace ShiftPointCalculator
                 Komande? izabranaKomanda = null;
                 while (true)
                 {
-                    izabranaKomanda = GlavniMeni();
+                    IspisiGlavniMeni();
+                    izabranaKomanda = OcitajKomandu();
 
                     if (izabranaKomanda != null)
                     {
@@ -44,60 +45,10 @@ namespace ShiftPointCalculator
             }
 
             return;
-            /*
-            IEnumerable<string> linije = default!;
-            try
-            {
-                String fullName = @"VehicleData\Primer ulaznog fajla.txt";
-                linije = File.ReadLines(fullName, Encoding.UTF8);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-
-                return;
-            }
-
-
-            UlazniPodaci ulazniPodaci = null;
-            try
-            {
-                ulazniPodaci = Parsiranje(linije);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-
-                return;
-            }
-            finally
-            {
-                Thread.CurrentThread.CurrentCulture = currentCulture;
-            }
-
-            UlazniPodaciVozilaRepository.Save(ulazniPodaci);
-
-            Vozilo kola = new Vozilo();
-
-            List<QueryResults.VoziloQueryResult> listaVozila = VoziloDataProvider.GetAll();
-
-            QueryResults.VoziloQueryResult prvoVozilo = listaVozila.First();
-            kola.UlazniPodaci = UlazniPodaciVozilaRepository.GetByVoziloId(prvoVozilo.Id);
-
-            Racunaj(kola);*/
         }
 
-        private static Komande? GlavniMeni()
+        private static Komande? OcitajKomandu()
         {
-            IEnumerable<Komande> commands = Enum.GetValues<Komande>();
-
-            Console.WriteLine("Izaberi:");
-
-            foreach (var command in commands)
-            {
-                Console.WriteLine($"{(int)command} - {command}");
-            }
-
             string? commandString = Console.ReadLine();
 
             if (String.IsNullOrWhiteSpace(commandString))
@@ -127,6 +78,18 @@ namespace ShiftPointCalculator
             Komande chosenCommand = (Komande)commandInt;
 
             return chosenCommand;
+        }
+
+        private static void IspisiGlavniMeni()
+        {
+            IEnumerable<Komande> commands = Enum.GetValues<Komande>();
+
+            Console.WriteLine("Izaberi:");
+
+            foreach (var command in commands)
+            {
+                Console.WriteLine($"{(int)command} - {command}");
+            }
         }
     }
 }

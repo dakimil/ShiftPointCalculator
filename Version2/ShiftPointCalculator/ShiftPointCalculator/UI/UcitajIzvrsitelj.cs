@@ -1,4 +1,5 @@
-﻿using ShiftPointCalculator.DataAcces;
+﻿using ShiftPointCalculator.BusinessLogic;
+using ShiftPointCalculator.DataAcces;
 
 namespace ShiftPointCalculator.UI
 {

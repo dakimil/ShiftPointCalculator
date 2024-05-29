@@ -1,4 +1,5 @@
-﻿using ShiftPointCalculator.DataAcces;
+﻿using ShiftPointCalculator.BusinessLogic;
+using ShiftPointCalculator.DataAcces;
 using System;
 using System.Collections.Generic;
 using System.Linq;

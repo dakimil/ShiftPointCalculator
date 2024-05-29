@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 //ovde racunamo momente na tockovima za sve brzine vozila
-namespace ShiftPointCalculator
+namespace ShiftPointCalculator.BusinessLogic
 {
     public class Vozilo
     {
         public Vozilo(int id, UlazniPodaci up)
         {
-            this.Id = id;
-            this.UlazniPodaci = up;
+            Id = id;
+            UlazniPodaci = up;
         }
 
         public int Id { get; private set; }
@@ -29,7 +29,7 @@ namespace ShiftPointCalculator
             {
                 MomentiNaTockovimaZaBrzinuVozila moment = new MomentiNaTockovimaZaBrzinuVozila();
                 moment.BrzinaVozila = v;
-                foreach (StepenPrenosaMenjaca spm in this.UlazniPodaci.StepeniPrenosaMenjaca)
+                foreach (StepenPrenosaMenjaca spm in UlazniPodaci.StepeniPrenosaMenjaca)
                 {
                     DataPoint dataPoint = new DataPoint();
                     dataPoint.BrzinaVozila = moment.BrzinaVozila;
@@ -38,22 +38,22 @@ namespace ShiftPointCalculator
 
                     dataPoint.IzracunajBrojObrtajaMotora(
                         brzina: moment.BrzinaVozila,
-                        glavniPrenos: this.UlazniPodaci.GlavniPrenos,
-                       poluprecnikTocka: this.UlazniPodaci.PoluprecnikTocka,
-                       stepeniPrenosaMenjaca: this.UlazniPodaci.StepeniPrenosaMenjaca);
+                        glavniPrenos: UlazniPodaci.GlavniPrenos,
+                       poluprecnikTocka: UlazniPodaci.PoluprecnikTocka,
+                       stepeniPrenosaMenjaca: UlazniPodaci.StepeniPrenosaMenjaca);
 
                     dataPoint.IzracunajMomentMotoraPriObrtajima(
-                        momentiMotora: this.UlazniPodaci.MomentiMotora);
+                        momentiMotora: UlazniPodaci.MomentiMotora);
 
                     dataPoint.IzaracunajMomentNaTockovima(
-                        glavniPrenos: this.UlazniPodaci.GlavniPrenos);
+                        glavniPrenos: UlazniPodaci.GlavniPrenos);
 
                     moment.DataPoints.Add(
                         dataPoint.RedniBrojStepenaPrenosaMenjaca,
                         dataPoint);
                 }
 
-                this.MomentiNaTockovimaZaSveBrzineVozila.Add(
+                MomentiNaTockovimaZaSveBrzineVozila.Add(
                     moment.BrzinaVozila,
                     moment);
             }

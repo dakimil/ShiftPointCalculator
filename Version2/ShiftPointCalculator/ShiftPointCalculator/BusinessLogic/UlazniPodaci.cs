@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShiftPointCalculator
+namespace ShiftPointCalculator.BusinessLogic
 {
     public class UlazniPodaci
     {
-        public string NazivVozila {  get; set; }
+        public string NazivVozila { get; set; }
 
         public int PoluprecnikTocka { get; set; }
 
