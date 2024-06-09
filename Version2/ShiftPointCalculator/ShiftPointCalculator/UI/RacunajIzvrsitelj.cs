@@ -47,6 +47,9 @@ namespace ShiftPointCalculator.UI
                 // new row
                 Console.WriteLine();
             }//sredi formatiranje
+
+            Console.ForegroundColor = defaultColor;
+
             return false;
         }
 

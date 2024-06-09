@@ -29,7 +29,7 @@ namespace ShiftPointCalculator.UI
             
             string? asmPath = asm!.Location;
 
-            string asmFolder = Path.GetDirectoryName(asmPath!);
+            string? asmFolder = Path.GetDirectoryName(asmPath!);
 
             filePath = Path.Combine(asmFolder!, "VehicleData", fileName);
 

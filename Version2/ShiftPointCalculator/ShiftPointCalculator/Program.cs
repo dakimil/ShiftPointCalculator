@@ -42,6 +42,8 @@ namespace ShiftPointCalculator
                 Console.WriteLine($"Ivrsitelj za komandu {izabranaKomanda} je {izvrsitelj.GetType().Name}");
 
                 izadji = izvrsitelj.Izvrsi();
+
+                Console.WriteLine("---------------");
             }
 
             return;
