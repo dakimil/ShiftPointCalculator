@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShiftPointCalculator
+namespace ShiftPointCalculator.BusinessLogic
 {
     public class StepenPrenosaMenjaca //bilo je internal class ali je promenjeno zbog metoda GetByVoziloId u StepenPrenosaMenjacaProvider
     {
