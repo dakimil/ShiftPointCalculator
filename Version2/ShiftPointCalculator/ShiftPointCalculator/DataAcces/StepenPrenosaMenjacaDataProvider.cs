@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using ShiftPointCalculator.BusinessLogic;
 using ShiftPointCalculator.Repositories;
 using System;
 using System.Collections.Generic;
