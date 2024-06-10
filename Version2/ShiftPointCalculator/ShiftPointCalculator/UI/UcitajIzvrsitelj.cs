@@ -19,11 +19,6 @@ namespace ShiftPointCalculator.UI
                 return false;
             }
 
-            /*
-            filePath = $"C:\\Users\\Daki\\source\\repos\\ShiftPointCalculator\\Version2\\ShiftPointCalculator" +
-                $"\\ShiftPointCalculator\\bin\\Debug\\" +
-                $"net6.0\\VehicleData\\" + fileName;
-            */
 
             Assembly? asm = Assembly.GetEntryAssembly();
             

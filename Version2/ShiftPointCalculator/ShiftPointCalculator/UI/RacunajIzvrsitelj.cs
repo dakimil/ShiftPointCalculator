@@ -30,7 +30,20 @@ namespace ShiftPointCalculator.UI
                 Console.Write(brzinaMenjaca);
                 foreach (KeyValuePair<int, DataPoint> v in k.Value.DataPoints)
                 {
-                    string dataPoint = String.Format("{0,15}", $"{Math.Round(v.Value.MomentNaTocku, 2)} Nm;| ");
+                    string dataPoint = String.Empty;
+
+                    if (v.Value.MomentNaTocku != 0)
+                    {
+                        string momentString = $"{Math.Round(v.Value.MomentNaTocku, 2)}";
+                        string brojObrtajaString = $"{Math.Floor(v.Value.BrojObrtajaMotora)}";
+                        dataPoint = String.Format("{0,20}", $"{momentString} Nm/{brojObrtajaString};| ");
+                    }
+                    else
+                    {
+                        dataPoint = String.Format("{0,20}", "ND;| ");
+                    }
+
+
                     //s += String.Format("{0,15}", $"{Math.Round(v.Value.MomentNaTocku, 2)} Nm;| ");
 
                     if (v.Value == k.Value.DataPointWithMaxMoment)
@@ -43,6 +56,8 @@ namespace ShiftPointCalculator.UI
                     }
 
                     Console.Write(dataPoint);
+
+                    Console.ForegroundColor = defaultColor;
                 }
                 // new row
                 Console.WriteLine();
